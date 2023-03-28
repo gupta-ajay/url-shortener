@@ -97,7 +97,7 @@ END;
 $$LANGUAGE plpgsql;
 
 CREATE 
-OR REPLACE FUNCTION trigger_short_urls_create() RETURNS TRIGGER AS $$ BEGIN NEW.short_url = base62_encode(NEW.long_url);
+OR REPLACE FUNCTION trigger_short_urls_create() RETURNS TRIGGER AS $$ BEGIN NEW.short_url = base62_encode(NEW.id);
 NEW.created_at = now();
 NEW.updated_at = NEW.created_at;
 RETURN NEW;
