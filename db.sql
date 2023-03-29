@@ -1,3 +1,14 @@
+DO
+$do$
+BEGIN
+   IF EXISTS (SELECT FROM pg_database WHERE datname = 'postgres') THEN
+      RAISE NOTICE 'Database already exists';  -- optional
+   ELSE
+      PERFORM dblink_exec('dbname=' || current_database()  -- current db
+                        , 'CREATE DATABASE postgres');
+   END IF;
+END
+$do$;
 CREATE TABLE public.short_urls (
   id bigserial NOT NULL, 
   created_at timestamp without time zone NOT NULL DEFAULT now(), 
